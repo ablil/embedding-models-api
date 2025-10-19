@@ -1,6 +1,9 @@
 from flask import Flask, request, jsonify
 from sentence_transformers import SentenceTransformer
 import os
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__)
 
@@ -19,7 +22,7 @@ def embed_text():
         text = [text]
 
     embeddings = model.encode(text).tolist()
-    return jsonify({"embeddings": embeddings})
+    return jsonify({"embeddings": embeddings[0]})
 
 @app.route("/health")
 def health():
