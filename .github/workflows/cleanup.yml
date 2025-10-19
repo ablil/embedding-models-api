@@ -19,28 +19,8 @@ jobs:
       PACKAGE_NAME: embedding-models-api
 
     steps:
-      - name: Delete all non-latest images from GHCR
-        run: |
-          echo "Fetching image versions for $OWNER/$PACKAGE_NAME..."
-          
-          # List all versions
-          gh api \
-            -H "Accept: application/vnd.github+json" \
-            /users/$OWNER/packages/container/$PACKAGE_NAME/versions \
-            --paginate \
-            --jq '.[] | {id: .id, tags: .metadata.container.tags}' > versions.json
-
-          cat versions.json | jq -c '.[]' | while read -r version; do
-            vid=$(echo "$version" | jq -r '.id')
-            tags=$(echo "$version" | jq -r '.tags | join(",")')
-
-            if echo "$tags" | grep -q "latest"; then
-              echo "Skipping version $vid (tagged as latest)"
-            else
-              echo "Deleting version $vid (tags: $tags)"
-              gh api \
-                --method DELETE \
-                -H "Accept: application/vnd.github+json" \
-                /users/$OWNER/packages/container/$PACKAGE_NAME/versions/$vid
-            fi
-          done
+    - uses: actions/delete-package-versions@v5
+      with:
+        package-name: 'embedding-models-api'
+        package-type: 'container'
+        min-versions-to-keep: 3
