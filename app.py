@@ -14,15 +14,15 @@ model = SentenceTransformer(MODEL_NAME)
 @app.route("/embed", methods=["POST"])
 def embed_text():
     data = request.get_json(silent=True)
-    if not data or "text" not in data:
-        return jsonify({"error": "Missing 'text' field"}), 400
+    if not data or "texts" not in data:
+        return jsonify({"error": "Missing 'texts' field"}), 400
 
-    text = data["text"]
-    if isinstance(text, str):
-        text = [text]
+    texts = data["texts"]
+    if not isinstance(texts, list):
+        raise Exception('texts is NOT a list')
 
-    embeddings = model.encode(text).tolist()
-    return jsonify({"embeddings": embeddings[0]})
+    embeddings = model.encode(texts).tolist()
+    return jsonify({"embeddings": embeddings})
 
 @app.route("/health")
 def health():

@@ -21,8 +21,12 @@ docker run -p 8080:8080 ghcr.io/ablil/embedding-models-api:latest
 
 ## API
 
-* POST /embed 
-  * Request JSON: { "text": "single string or array of strings" }
-  * Response JSON: { "embeddings": [[...], [...]] } — list of embedding vectors (floats)
-* GET /health 
-    * Response JSON: { "status": "ok" }
+**Embedding**
+```shell
+curl http://localhost:8080/embed -H 'content-type: application/json' -d '{"texts": ["first", "second"]}'
+```
+
+**Health**
+```shell
+curl http://localhost:8080/health
+```
