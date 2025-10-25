@@ -9,5 +9,5 @@ COPY app.py .
 # pre-download the model at build time to avoid runtime network
 RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')"
 
-EXPOSE 8000
+EXPOSE 8080
 CMD ["flask", "run"]
