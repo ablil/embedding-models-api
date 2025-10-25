@@ -16,7 +16,7 @@ A prebuilt image is published to Github container registry on push to **main** b
 Pull and run the image immediately:
 ```bash
 docker pull ghcr.io/ablil/embedding-models-api:latest
-docker run -p 8000:8000 ghcr.io/ablil/embedding-models-api:latest
+docker run -p 8080:8080 ghcr.io/ablil/embedding-models-api:latest
 ```
 
 ## API
