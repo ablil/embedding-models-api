@@ -6,6 +6,3 @@ services:
       - "8080:8080"
     environment:
       - MODEL_NAME=sentence-transformers/all-MiniLM-L6-v2
-      - TRANSFORMERS_OFFLINE=1   # set to 1 if you predownload model
-    volumes:
-      - ./app/model_cache:/root/.cache/huggingface
